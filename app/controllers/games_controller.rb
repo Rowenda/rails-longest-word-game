@@ -1,3 +1,5 @@
+require 'open-uri'
+
 class GamesController < ApplicationController
   def new
     @letters = ('a'..'z').to_a
@@ -14,5 +16,9 @@ class GamesController < ApplicationController
     @selected_letters = params[:selected_letters]
     @selected_letters.split(' ').each { |char| @check_letter += 1 if @word.include? char }
     @result = true if @check_letter == @word.length
+    if @result
+      url = `https://wagon-dictionary.herokuapp.com/#{@word}`
+      @response = JSON.parse(URI.open(url).read)
+    end
   end
 end
