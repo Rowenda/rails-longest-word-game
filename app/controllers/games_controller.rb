@@ -18,7 +18,7 @@ class GamesController < ApplicationController
     @result = true if @check_letter == @word.length
     if @result
       url = `https://wagon-dictionary.herokuapp.com/#{@word}`
-      @response = JSON.parse(URI.open(url).read)
+      @response = JSON.parse(open(url).read)
     end
   end
 end
